@@ -16,24 +16,32 @@ export class ChartsComponent implements OnInit {
   chartConfigProp: configChart;
   chartOptionsProp: opntionsCharts;
   // second chart
-  chartDataProp2: chartData;
   chartConfigProp2: configChart;
-  chartOptionsProp2: opntionsCharts;
   // last chart
-  chartDataProp3: chartData;
   chartConfigProp3: configChart;
-  chartOptionsProp3: opntionsCharts;
   constructor() {
     this.chartDataProp = {
-      labels: ['test', 'test', 'test'],
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
-          label: "label",
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: "rgb(255, 99, 132)",
-          data: [1, 5, 9, 4, 3, 7]
+          label: 'Sales',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          data: [65, 59, 80, 81, 56, 55, 40]
+        },
+        {
+          label: 'Expenses',
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          data: [28, 48, 40, 19, 86, 27, 90]
+        },
+        {
+          label: 'Profit',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          data: [35, 25, 45, 55, 65, 75, 85]
         }
-      ],
+      ]
     };
     this.chartConfigProp = {
       type: 'bar'
@@ -41,58 +49,79 @@ export class ChartsComponent implements OnInit {
     this.chartOptionsProp = {
       scales: {
         y: {
-          beginAtZero: true,
-          display: true
+          beginAtZero: false,
+          display: false
         }
       }
     };
     // second chart
-    this.chartDataProp2 = {
-      labels: ['test', 'test', 'test'],
-      datasets: [
-        {
-          label: "label",
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: "rgb(255, 99, 132)",
-          data: [1, 5, 9, 4, 3, 7]
-        }
-      ],
-    };
+   
     this.chartConfigProp2 = {
       type: 'doughnut'
     };
-    this.chartOptionsProp2 = {
-      scales: {
-        y: {
-          beginAtZero: true,
-          display: true
-        }
-      }
-    };
     // last chart
-    this.chartDataProp3 = {
-      labels: ['test', 'test', 'test'],
-      datasets: [
-        {
-          label: "label",
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: "rgb(255, 99, 132)",
-          data: [1, 5, 9, 4, 3, 7]
-        }
-      ],
-    };
+   
     this.chartConfigProp3 = {
       type: 'line'
     };
-    this.chartOptionsProp3 = {
-      scales: {
-        y: {
-          beginAtZero: true,
-          display: true
-        }
-      }
-    };
+    
    }
+   applyFilters(filterType: string): void {
+    switch (filterType) {
+      case 'lastSixMonths':
+        this.chartDataProp = {
+          labels: ['February', 'March', 'April', 'May', 'June', 'July'],
+          datasets: [
+            {
+              label: 'Sales',
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              data: [15, 80, 81, 100, 55, 40]
+            },
+            {
+              label: 'Expenses',
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              data: [48,1, 19, 15, 27, 0]
+            },
+            {
+              label: 'Profit',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              data: [25, 45, 55, 65, 75, 85]
+            }
+          ]
+        };
+        break;
+      case 'currentYear':
+        this.chartDataProp = {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          datasets: [
+            {
+              label: 'Sales',
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              data: [65, 59, 80, 81, 56, 55, 40]
+            },
+            {
+              label: 'Expenses',
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              data: [28, 48, 40, 19, 86, 27, 90]
+            },
+            {
+              label: 'Profit',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              data: [35, 25, 45, 55, 65, 75, 85]
+            }
+          ]
+        };
+        break;
+      default:
+        break;
+    }
+  }
   ngOnInit(): void {
     
   }
