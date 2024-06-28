@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ChartsRoutingModule } from './charts-routing.module';
 import { ChartsComponent } from './components/charts/charts.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ChartsComponent } from './components/charts/charts.component';
   ],
   imports: [
     CommonModule,
-    ChartsRoutingModule
+    ChartsRoutingModule,
+    SharedModule
   ]
 })
 export class ChartsModule { }
