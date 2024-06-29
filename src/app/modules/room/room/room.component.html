@@ -1,0 +1,25 @@
+<section class="container">
+    <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Active</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a   class="nav-link">create room</a>
+        </li>
+        <li class="nav-item">
+         <button (click)="logOut()" class="btn btn-danger" >Cerrar sesion</button>
+        </li>
+      </ul>
+</section>
+<section class="container">
+  <div class="card" *ngFor="let room of chatRooms$ |async">
+    <div class="card-body">
+      <p class="card title">{{room.name}}</p>
+      <button (click)="joinRoom(room.id)">Ir a la sala {{ room.name }}</button>
+    </div>
+    room
+  </div>
+</section>
