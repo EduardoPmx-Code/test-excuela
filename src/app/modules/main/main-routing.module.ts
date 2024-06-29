@@ -7,6 +7,10 @@ const routes: Routes = [
     path:'',component:MainComponent,
     children:[
       {
+        path:'',
+        redirectTo:'charts'
+      },
+      {
         path: 'charts',
             loadChildren: () => import('../charts/charts.module')
               .then((m) => m.ChartsModule
@@ -17,6 +21,16 @@ const routes: Routes = [
             loadChildren: () => import('../chat/chat.module')
               .then((m) => m.ChatModule
             ),
+      },
+      {
+        path: 'video',
+            loadChildren: () => import('../video/video.module')
+              .then((m) => m.VideoModule
+            ),
+      },
+      {
+        path: '**', 
+        redirectTo: 'charts',
       },
     ]
   },
