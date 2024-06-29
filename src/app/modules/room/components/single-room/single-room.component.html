@@ -1,0 +1,16 @@
+<p>single-room works!</p>
+<div *ngIf="chatRoom$ | async as chatRoom">
+    <h2>{{ chatRoom.name }}</h2>
+    <div class="messages">
+      <div *ngFor="let message of messages$ | async">
+        <strong [ngClass]="{
+            'text-primary': message.username === username,
+            'text-secondary': message.username !== username
+          }">{{ message.username }}</strong>: {{ message.content }} <small>{{ message.timestamp  }}</small>
+      </div>
+    </div>
+    <div class="send-message">
+      <input type="text" [(ngModel)]="newMessage" placeholder="Type a message">
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </div>
