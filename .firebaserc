@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "test-excuela": {
+      "hosting": {
+        "excuela-test": [
+          "test-excuela"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "test-excuela"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "excuela-test",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}
