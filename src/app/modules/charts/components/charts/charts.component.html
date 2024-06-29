@@ -1,8 +1,8 @@
 <section class="container">
     <div class="row">
         <div class="col">
-            <button (click)="applyFilters('lastSixMonths')">Últimos 6 meses</button>
-  <button (click)="applyFilters('currentYear')">Año actual</button>
+            <button class="btn btn-primary me-3" (click)="applyFilters('lastSixMonths')">Últimos 6 meses</button>
+            <button class="btn btn-primary" (click)="applyFilters('currentYear')">Año actual</button>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6">
             <app-atomic-chart [ctx]="chartDataProp" [config]="chartConfigProp" [opntionsCharts]="chartOptionsProp"></app-atomic-chart>
