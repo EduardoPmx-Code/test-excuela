@@ -125,5 +125,9 @@ export class ChartsComponent implements OnInit {
   ngOnInit(): void {
     
   }
+  changeChartType(newType: configChart['type']) {
+    this.chartConfigProp = { ...this.chartConfigProp, type: newType };
+    console.log(this.chartConfigProp.type);
+  }
 }
 
