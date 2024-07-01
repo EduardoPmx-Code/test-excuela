@@ -1,25 +1,72 @@
-<section class="container">
-    <ul class="nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Active</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a   class="nav-link">create room</a>
-        </li>
-        <li class="nav-item">
-         <button (click)="logOut()" class="btn btn-danger" >Cerrar sesion</button>
-        </li>
-      </ul>
+<!--dinamic chat-->
+<section class="container my-3   mw-50 " *ngIf="showChat">
+  <app-atomic-chat-room [dinamicRoomId]="dinamicRoomId" ></app-atomic-chat-room>
+  <button class="btn btn-danger mt-3" (click)="closeChat()" >Close dinamic chat </button>
 </section>
-<section class="container">
-  <div class="card" *ngFor="let room of chatRooms$ |async">
-    <div class="card-body">
-      <p class="card title">{{room.name}}</p>
-      <button (click)="joinRoom(room.id)">Ir a la sala {{ room.name }}</button>
+  
+
+
+<section class="container mt-4">
+  <app-loader *ngIf="loader"></app-loader>
+  <div class="">
+    <div class="row container_rooms">
+      <div class="col-sm-12 col-md-6 col-lg-3  " *ngFor="let room of (chatRooms$  |async)">
+        <div class=" card_b   border  glow_item my-2 py-1">
+          <div class=" m-3">
+            <h2 class="text-light text-center">{{room.name}}</h2>
+            
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-primary me-2" (click)="joinRoom(room.id)">Go  </button>
+              <button class="btn btn-danger" (click)=" setDinamicRoom(room.id)">show  </button>
+            </div>
+          </div>
+         
+        </div>
+      </div>
     </div>
-    room
   </div>
+
+ 
 </section>
+<section class="container mt-2">
+  <ul class="nav">
+      <li class="nav-item mx-2">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          create room
+        </button>
+      </li>
+      
+      <li class="nav-item">
+       <button (click)="logOut()" class="btn btn-danger" >LogOut</button>
+      </li>
+    </ul>
+</section>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content nav_color ">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create Room Modal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="createNewRoom">
+          <div class="form-group my-2 ">
+            <label class="" >Room Name</label>
+            <input  class="form-control" formControlName="newRoomName" >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button (click)="createRoom()" type="button" data-bs-dismiss="modal" class="btn btn-primary">Create Room</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
