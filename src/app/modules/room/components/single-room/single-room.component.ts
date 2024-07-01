@@ -1,5 +1,6 @@
 
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, from } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -11,10 +12,12 @@ import { ChatRoom, Message } from 'src/utils/interfaces';
   templateUrl: './single-room.component.html',
   styleUrls: ['./single-room.component.css']
 })
-export class SingleRoomComponent implements OnInit {
+export class SingleRoomComponent implements OnInit, AfterViewChecked {
+  @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
   chatRoom$: Observable<ChatRoom | null>;
   messages$: Observable<Message[]>;
-  newMessage: string = '';
+  //newMessage: string = '';
+  formMessaje!:FormGroup
   private subscriptions: Subscription = new Subscription();
   private roomId: string = '';
   username: string | null = null;
@@ -22,10 +25,14 @@ export class SingleRoomComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private chatRoomService: ChatRoomService,
-    private authService: AuthService
+    private authService: AuthService,
+    private fb:FormBuilder
   ) {
     this.messages$ = this.chatRoomService.messages$;
     this.chatRoom$ = new Observable<ChatRoom | null>();
+    this.formMessaje = this.fb.group({
+      newMessage:['', [Validators.required]],
+    })
   }
 
   ngOnInit(): void {
@@ -47,18 +54,35 @@ export class SingleRoomComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
+  }
+  private scrollToBottom(): void {
+    try {
+      this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
+    } catch(err) {
+      console.log(err)
+     }
+  }
 
   sendMessage() {
-    if (this.newMessage.trim()) {
-      console.log(this.username)
-      if (this.username) {
-        
-        this.chatRoomService.sendMessage(this.roomId, this.newMessage, this.username);
-        this.newMessage = '';
-      } else {
-        console.error('User does not have a display name');
+    if(this.formMessaje.status === "VALID"){
+      let newMessaje = this.formMessaje.value.newMessage
+      if (newMessaje.trim()) {
+        console.log(this.username)
+        if (this.username) {
+          
+          this.chatRoomService.sendMessage(this.roomId, newMessaje, this.username);
+         // this.newMessage = '';
+         this.formMessaje.reset();
+        } else {
+          console.error('User does not have a display name');
+        }
       }
+    }else{
+      alert('invalid value')
     }
+
   }
   
 

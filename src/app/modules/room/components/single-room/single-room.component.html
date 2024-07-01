@@ -1,16 +1,28 @@
-<p>single-room works!</p>
-<div *ngIf="chatRoom$ | async as chatRoom">
-    <h2>{{ chatRoom.name }}</h2>
-    <div class="messages">
-      <div *ngFor="let message of messages$ | async">
-        <strong [ngClass]="{
-            'text-primary': message.username === username,
-            'text-secondary': message.username !== username
-          }">{{ message.username }}</strong>: {{ message.content }} <small>{{ message.timestamp  }}</small>
+<section class="container">
+
+  <div class=" d-flex justify-content-center"  *ngIf="chatRoom$ | async as chatRoom">
+    <div class="card_ border p-4">
+      <h2 class="card-title text-light">{{ chatRoom.name }}</h2>
+      <div class="messages"  #messagesContainer>
+        <div *ngFor="let message of messages$ | async">
+          <strong [ngClass]="{
+              'text-primary': message.username === username,
+              'text-danger': message.username !== username
+            }">{{ message.username }}</strong>: <p class="text-light">{{ message.content }}</p> 
+        </div>
       </div>
+      <form (ngSubmit)="sendMessage()" [formGroup]="formMessaje" >
+        <div class="form-group mt-3">
+          <input type="text" class="form-control" formControlName="newMessage" placeholder="Type a message">
+          <div class="d-flex justify-content-end mt-2">
+            <button type="submit" class="btn btn-primary" >Send</button>
+          </div>
+         
+        </div>
+
+      </form>
+      
     </div>
-    <div class="send-message">
-      <input type="text" [(ngModel)]="newMessage" placeholder="Type a message">
-      <button (click)="sendMessage()">Send</button>
-    </div>
+   
   </div>
+</section>
