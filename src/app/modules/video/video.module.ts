@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { VideoRoutingModule } from './video-routing.module';
 import { VideoComponent } from './components/video/video.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { VideoComponent } from './components/video/video.component';
   ],
   imports: [
     CommonModule,
-    VideoRoutingModule
+    VideoRoutingModule,
+    SharedModule
   ]
 })
 export class VideoModule { }
