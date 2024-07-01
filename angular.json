@@ -28,10 +28,13 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.css"
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+               "node_modules/video.js/dist/video-js.css"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.js"
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/video.js/dist/video.js",
+              "node_modules/videojs-http-source-selector/dist/videojs-http-source-selector.js"
             ]
           },
           "configurations": {
