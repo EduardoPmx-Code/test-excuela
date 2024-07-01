@@ -1,0 +1,18 @@
+<div class="chat-container card">
+    <div class="messages" #messagesContainer>
+      <div *ngFor="let message of messages$ | async">
+        <strong [ngClass]="{
+            'text-primary': message.username === username,
+            'text-danger': message.username !== username
+          }">{{ message.username }}</strong>: <p class="">{{ message.content }}</p>
+      </div>
+    </div>
+    <form (ngSubmit)="sendMessage()" [formGroup]="formMessaje">
+      <div class="form-group mt-3">
+        <input type="text" class="form-control" formControlName="newMessage" placeholder="Type a message">
+        <div class="d-flex justify-content-end mt-2">
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+      </div>
+    </form>
+  </div>

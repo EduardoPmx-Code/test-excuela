@@ -44,7 +44,9 @@ export class AtomicChartComponent implements AfterViewInit,OnChanges  {
   }
   
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
     if (this.chartInstance) {
+      console.log(this.chartInstance)
       this.chartInstance.destroy();
     }
     this.createChart(); 
