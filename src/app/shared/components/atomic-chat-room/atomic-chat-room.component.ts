@@ -13,61 +13,68 @@ import { Message } from 'src/utils/interfaces/message.interface';
 export class AtomicChatRoomComponent implements OnInit, AfterViewChecked ,OnChanges {
 
 
-  @Input() dinamicRoomId: string = '';
+  @Input() dinamicRoomId: string = ''; // ID dinámico de la sala de chat.
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
 
-  messages$: Observable<Message[]>;
-  formMessaje!: FormGroup;
-  username: string | null = null;
+  messages$: Observable<Message[]>; // Observable que contiene los mensajes.
+  formMessaje!: FormGroup; // Formulario para enviar mensajes.
+  username: string | null = null; // Nombre de usuario del remitente.
 
   constructor(
     private chatRoomService: ChatRoomService,
     private authService: AuthService,
     private fb: FormBuilder
   ) {
-    this.messages$ = this.chatRoomService.messages$;
+    this.messages$ = this.chatRoomService.messages$; // Suscripción a los mensajes de la sala de chat.
     this.formMessaje = this.fb.group({
-      newMessage: ['', [Validators.required]],
+      newMessage: ['', [Validators.required]], // Campo del formulario para el nuevo mensaje.
     });
   }
+
+  // Este método se ejecuta cuando cambian los valores de las propiedades de entrada.
   ngOnChanges(changes: SimpleChanges): void {
     if (this.dinamicRoomId) {
-      this.chatRoomService.loadExistingMessages(this.dinamicRoomId);
-      this.chatRoomService.listenForMessages(this.dinamicRoomId);
+      this.chatRoomService.loadExistingMessages(this.dinamicRoomId); // Cargar mensajes existentes.
+      this.chatRoomService.listenForMessages(this.dinamicRoomId); // Escuchar nuevos mensajes.
     }
 
+    // Obtener el nombre de usuario del servicio de autenticación.
     this.authService.user$.subscribe((data) => {
       this.username = this.authService.username;
     });
   }
 
-  ngOnInit(): void {
-  
-  }
+  // Este método se ejecuta una vez que el componente ha sido inicializado.
+  ngOnInit(): void {}
 
+  // Este método se ejecuta después de que la vista del componente ha sido verificada.
   ngAfterViewChecked(): void {
     this.scrollToBottom();
   }
 
+  // Este método desplaza el contenedor de mensajes hacia abajo.
   private scrollToBottom(): void {
     try {
       this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
-    } catch (err) { }
+    } catch (err) {
+      // Manejar cualquier error durante el desplazamiento.
+    }
   }
 
+  // Este método envía un nuevo mensaje.
   sendMessage(): void {
     if (this.formMessaje.valid) {
       const newMessage = this.formMessaje.value.newMessage;
       if (newMessage.trim()) {
         if (this.username) {
-          this.chatRoomService.sendMessage(this.dinamicRoomId, newMessage, this.username);
-          this.formMessaje.reset();
+          this.chatRoomService.sendMessage(this.dinamicRoomId, newMessage, this.username); // Enviar el mensaje.
+          this.formMessaje.reset(); // Reiniciar el formulario.
         } else {
-          console.error('User does not have a display name');
+          console.error('User does not have a display name'); // Error si el usuario no tiene un nombre de usuario.
         }
       }
     } else {
-      alert('Invalid value');
+      alert('Invalid value'); // Alerta si el valor del formulario no es válido.
     }
   }
 

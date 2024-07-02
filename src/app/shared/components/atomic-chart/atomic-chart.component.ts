@@ -16,64 +16,35 @@ export class AtomicChartComponent implements AfterViewInit,OnChanges  {
   private chartInstance: Chart | null = null;
   
   constructor() {
-    /*this.ctx={
-      labels:[ 'test','test','test'],
-      datasets:[
-        {
-          label:"label",
-          backgroundColor:'rgb(255, 99, 132)',
-          borderColor:"rgb(255, 99, 132)",
-          data:[1,5,9,4,3,7]
-        }
-      ],
-    };
-    this.config={
-      type:'bar'
-    }
-    this.opntionsChats={
-      scales:{
-        y:{
-          beginAtZero:true,
-          display:true
-        }
-      }
-    }*/
+
    }
+   // Este método se ejecuta después de que la vista del componente ha sido inicializada.
    ngAfterViewInit(): void {
     this.createChart();
   }
-  
+
+  // Este método se ejecuta cuando cambian los valores de las propiedades de entrada.
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
+    console.log(changes);
     if (this.chartInstance) {
-      console.log(this.chartInstance)
-      this.chartInstance.destroy();
+      console.log(this.chartInstance);
+      this.chartInstance.destroy(); // Destruir la instancia existente del gráfico para crear uno nuevo.
     }
-    this.createChart(); 
+    this.createChart();
   }
- /* createChart(type:configChart= this.config, data:chartData=this.ctx,opntions:opntionsCharts=this.opntionsCharts){
-    Chart.register(...registerables);
-    let chartConfig: ChartConfiguration={
-      type: type.type,
-      data:data,
-      options:opntions
-    }
-    const chartItem: ChartItem = document.getElementById('my-chart') as ChartItem
-   new Chart(chartItem, chartConfig)
-  }*/
-  
-   
-   createChart(): void {
-    Chart.register(...registerables);
+
+  // Este método crea y configura el gráfico utilizando Chart.js.
+  createChart(): void {
+    Chart.register(...registerables); // Registrar los componentes de Chart.js.
 
     if (this.chartCanvas && this.chartCanvas.nativeElement) {
       const canvas: HTMLCanvasElement = this.chartCanvas.nativeElement;
       const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!;
 
       this.chartInstance = new Chart(ctx, {
-        type: this.config.type,
-        data: this.ctx,
-        options: this.opntionsCharts
+        type: this.config.type, // Tipo de gráfico.
+        data: this.ctx, // Datos del gráfico.
+        options: this.opntionsCharts // Opciones de configuración del gráfico.
       });
     }
   }

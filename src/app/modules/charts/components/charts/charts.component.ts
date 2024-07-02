@@ -12,14 +12,12 @@ import { chartData, configChart, opntionsCharts } from 'src/utils/interfaces';
 })
 
 export class ChartsComponent implements OnInit {
-  chartDataProp: chartData;
-  chartConfigProp: configChart;
-  chartOptionsProp: opntionsCharts;
-  // second chart
-  chartConfigProp2: configChart;
-  // last chart
-  chartConfigProp3: configChart;
+  chartDataProp: chartData; // Propiedad para los datos del gráfico.
+  chartConfigProp: configChart; // Propiedad para la configuración del gráfico.
+  chartOptionsProp: opntionsCharts; // Propiedad para las opciones del gráfico.
+
   constructor() {
+    // Inicialización de los datos del gráfico.
     this.chartDataProp = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
@@ -43,9 +41,13 @@ export class ChartsComponent implements OnInit {
         }
       ]
     };
+
+    // Inicialización de la configuración del gráfico.
     this.chartConfigProp = {
-      type: 'bar'
+      type: 'bar' // Tipo de gráfico.
     };
+
+    // Inicialización de las opciones del gráfico.
     this.chartOptionsProp = {
       scales: {
         y: {
@@ -54,21 +56,13 @@ export class ChartsComponent implements OnInit {
         }
       }
     };
-    // second chart
-   
-    this.chartConfigProp2 = {
-      type: 'doughnut'
-    };
-    // last chart
-   
-    this.chartConfigProp3 = {
-      type: 'line'
-    };
-    
-   }
-   applyFilters(filterType: string): void {
+  }
+
+  // Método para aplicar filtros a los datos del gráfico.
+  applyFilters(filterType: string): void {
     switch (filterType) {
       case 'lastSixMonths':
+        // Datos para los últimos seis meses.
         this.chartDataProp = {
           labels: ['February', 'March', 'April', 'May', 'June', 'July'],
           datasets: [
@@ -82,7 +76,7 @@ export class ChartsComponent implements OnInit {
               label: 'Expenses',
               backgroundColor: 'rgba(54, 162, 235, 0.2)',
               borderColor: 'rgba(54, 162, 235, 1)',
-              data: [48,1, 19, 15, 27, 0]
+              data: [48, 1, 19, 15, 27, 0]
             },
             {
               label: 'Profit',
@@ -93,7 +87,9 @@ export class ChartsComponent implements OnInit {
           ]
         };
         break;
+
       case 'currentYear':
+        // Datos para el año en curso.
         this.chartDataProp = {
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
           datasets: [
@@ -118,16 +114,19 @@ export class ChartsComponent implements OnInit {
           ]
         };
         break;
+
       default:
         break;
     }
   }
+
   ngOnInit(): void {
-    
   }
+
+  // Método para cambiar el tipo de gráfico.
   changeChartType(newType: configChart['type']) {
     this.chartConfigProp = { ...this.chartConfigProp, type: newType };
-    console.log(this.chartConfigProp.type);
+    console.log(this.chartConfigProp.type); // Log para verificar el nuevo tipo de gráfico.
   }
 }
 
